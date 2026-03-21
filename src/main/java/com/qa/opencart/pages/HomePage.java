@@ -10,6 +10,8 @@ public class HomePage {
 	private String searchInputLocator = "input[name='search']";
 	private String searchButtonLocator = "div#search button";
 	private String searchPageHeaderLocator = "div#content h1";
+	private String loginLinkLocator = "a:text('Login')";
+	private String myAccountLinkLocator = "a[title='My Account']";
 	
 	//2. Page constructor
 	public HomePage(Page page){
@@ -35,5 +37,11 @@ public class HomePage {
 		String header =  page.textContent(searchPageHeaderLocator);
 		System.out.println("Search header is: "+ header);
 		return header;
+	}
+	
+	public LoginPage navigateToLoginPage() {
+		page.click(myAccountLinkLocator);
+		page.click(loginLinkLocator);
+		return new LoginPage(page);// Page Chaining
 	}
 }

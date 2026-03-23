@@ -3,6 +3,8 @@ package com.qa.opencart.factory;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Paths;
+import java.util.Base64;
 import java.util.Properties;
 
 import com.microsoft.playwright.Browser;
@@ -104,6 +106,13 @@ public class PlaywrightFactory {
 			e.printStackTrace();
 		}
 		return prop;
+	}
+	
+	public static String takeScreenshot() {
+		String path = System.getProperty("user.dir") + "/screenshots/" + System.currentTimeMillis() + ".png";
+		byte[] buffer = getTLPage().screenshot(new Page.ScreenshotOptions().setPath(Paths.get(path)).setFullPage(true));
+		String base64Path = Base64.getEncoder().encodeToString(buffer);
+		return base64Path;
 	}
 
 }
